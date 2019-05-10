@@ -60,7 +60,7 @@ function reqListener() {
 
 // function nextDeparture(siteID, timeWindow) {
 
-  fetch(nextDeparuteURI,{mode: "no-cors"})
+  fetch(nextDeparuteURI,{method: 'GET',mode: "no-cors"})
   .then((res)=>res.json())
   .then((data)=>console.log(data))
   .catch((err)=>console.log('Fetch Error :-S', err));
