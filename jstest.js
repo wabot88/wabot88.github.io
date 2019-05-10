@@ -52,19 +52,19 @@ function reqListener() {
   upDateBuses(myJson.ResponseData.Buses)
 }
 
-var oReq = new XMLHttpRequest();
-oReq.addEventListener("load", reqListener);
-oReq.open("GET", cors_api_url + nextDeparuteURI);
-oReq.send();
+// var oReq = new XMLHttpRequest();
+// oReq.addEventListener("load", reqListener);
+// oReq.open("GET", cors_api_url + nextDeparuteURI);
+// oReq.send();
 
 
 // function nextDeparture(siteID, timeWindow) {
 
-//   fetch('http://api.sl.se/api2/realtimedeparturesV4.<json>?key=<'+realTimeInfoKey+'>&siteid=<'+siteID+'>&timewindow=<'+timeWindow+'>',{mode: "no-cors"})
-//   .then((res)=>res.json())
-//   .then((data)=>console.log(data))
-//   .catch((err)=>console.log('Fetch Error :-S', err));
-// }
+  fetch(nextDeparuteURI,{mode: "no-cors"})
+  .then((res)=>res.json())
+  .then((data)=>console.log(data))
+  .catch((err)=>console.log('Fetch Error :-S', err));
+
 // var headers = new Headers();
 
 // var requestOptions = { method: 'GET',
@@ -114,7 +114,7 @@ const getWeather = () => {
       console.log('Fetch Error :-S', err)
     })
 };
-getWeather()
+//getWeather()
 //   function(response) {
 //     if (response.status !== 200) {
 //       console.log('Looks like there was a problem. Status Code: ' +
