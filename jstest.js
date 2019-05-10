@@ -19,7 +19,7 @@ const sandviksVagenSiteID = '3067';
 const format = 'json';
 const timeWindow = '30';
 const realTimeInfoKey = '7ca1df5ecd844a299af35ff9acd5de0a';
-let nextDeparuteURI = 'http://api.sl.se/api2/realtimedeparturesV4.' + format + '?key=' + realTimeInfoKey + '&siteid=' + sandviksVagenSiteID + '&timewindow=' + timeWindow
+let nextDeparuteURI = 'https://api.sl.se/api2/realtimedeparturesV4.' + format + '?key=' + realTimeInfoKey + '&siteid=' + sandviksVagenSiteID + '&timewindow=' + timeWindow
 //var buses
 function upDateBuses(buses) {
   let text = '';
