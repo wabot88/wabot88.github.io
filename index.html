@@ -1,38 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatilble" content="ie=edge">
-        <title>Jonas testar js</title>
-    
-    </head>
-    <body>
-        <header>
-            <h1>Jonas testar git</h1>
-        </header>
-        <h2>The Button Element</h2>
-        <button id="b1">Click me!</button>
-        <button id="b2">The time is?</button>
-        <div id="time">
-            
-        <iframe src="https://free.timeanddate.com/clock/i6r1p2o3/n239/szw210/szh210/hoc000/hbw2/hfceee/cf100/hncccc/fdi76/mqc000/mql10/mqw4/mqd98/mhc000/mhl10/mhw4/mhd98/mmc000/mml10/mmw1/mmd98" frameborder="0" width="210" height="210"></iframe>
 
-        <p id="departures">some text</p>
-        <div id=output>Output here</div>
-        <div id="info"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatilble" content="ie=edge">
+    <title>Jonas testar js</title>
 
-<!-- <script language="javascript">
-    const uri = "https://cors-anywhere.herokuapp.com/http://worldclockapi.com/api/json/est/now";
-    const info = document.getElementById('info');
-    fetch(uri)
-    .then((resp) => resp.json())
-    .then(function (data)
-    {
-        info.innerHTML += `${data.currentDateTime}<br>`;
-    })
-</script> -->
+</head>
 
-        <script src="jstest.js"></script>
-    </body>
+<body style="background-color:lavender;">
+    <header>
+        <h1>
+            <center>Humlornas Infosida</center>
+        </h1>
+        <iframe src="http://free.timeanddate.com/clock/i6rdyew1/n239/tlse27/fs30/pa5/th1/ts1" frameborder="0" width="86" height="44"></iframe>
+
+
+    </header>
+    <hr>
+    <h3>Registrera hundpromenad</h3>
+    <form onsubmit="newDogWalk(this.users.value, this.walkTime.value)">
+        <input list="users" name="users">
+        <datalist id="users">
+            <option value="Tina">
+            <option value="Jonas">
+            <option value="Einar">
+            <option value="Signe">
+            <option value="Rita">
+            <option value="Ruth">
+        </datalist>
+        <input list="walkTime" name="walkTime">
+        <datalist id="walkTime">
+            <option value="5">
+            <option value="10">
+            <option value="15">
+            <option value="20">
+            <option value="25">
+            <option value="30">
+            <option value=">30">
+        </datalist>
+        <input type="submit">
+    </form>
+    <p id=output>Output here<br>Second row</p>
+    <h3>Hållplats Skärviksvägen</h3>
+    <p id="departures">some text</p>
+    <p id="under">under text</p>
+    <div id="info"></div>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+
+    <table id="bussar" style="width:50%">
+        <tr>
+            <th>Buss</th>
+            <th colspan="4">Avgår om</th>
+        </tr>
+        <tr>
+            <td>Bill Gates</td>
+            <td>55577854</td>
+
+        </tr>
+    </table>
+
+    <div id="clock">
+        <iframe
+            src="https://free.timeanddate.com/clock/i6r1p2o3/n239/szw210/szh210/hoc000/hbw2/hfceee/cf100/hncccc/fdi76/mqc000/mql10/mqw4/mqd98/mhc000/mhl10/mhw4/mhd98/mmc000/mml10/mmw1/mmd98"
+            frameborder="0" width="210" height="210"></iframe>
+    </div>
+
+    <h2>The Button Element</h2>
+    <button id="b1" onclick="getBuses()">Get buses</button>
+    <button id="b2" onclick="upDateBuses()">Update Buses</button>
+    <hr>
+    <input type="text" id="myInput" oninput="myFunction()">
+    <hr>
+
+
+    //
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+
+    //
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        //     https://firebase.google.com/docs/web/setup#config-web-app -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+
+    <script> // Your web app's Firebase configuration
+
+
+    </script>
+
+    <script src="jstest.js"></script>
+</body>
+
 </html>

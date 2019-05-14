@@ -1,5 +1,4 @@
-const tal = 2;
-console.log(tal);
+
 var smhi = null;
 //const SLHallPlatsKey =  4da9a566e24f4aed9b16d805faa8d142
 //const slPlatsupslagURL = 
@@ -11,39 +10,79 @@ var smhi = null;
 //   "Y": "59272704"
 //   },
 
+
+//Firebase
+
+
+
+//RAandom
+
+
+
+
+function myFunction() {
+  var x = document.getElementById("myInput").value;
+  document.getElementById("output").innerHTML = "You wrote: " + x;
+}
+
+  var dogOutput = ''
+function newDogWalk(user, walkTime){
+  dogOutput += user + 'gick i' + walkTime +' minuter <br>'
+  document.getElementById("output").innerHTML = dogOutput
+  //console.log(user + walkTime)
+}
+
 //SL
 //
 var cors_api_url = 'https://cors-anywhere.herokuapp.com/'
-var req_uri = ''
+//var req_uri = ''
 const sandviksVagenSiteID = '3067';
 const format = 'json';
-const timeWindow = '30';
+const timeWindow = '60';
 const realTimeInfoKey = '7ca1df5ecd844a299af35ff9acd5de0a';
 let nextDeparuteURI = 'https://api.sl.se/api2/realtimedeparturesV4.' + format + '?key=' + realTimeInfoKey + '&siteid=' + sandviksVagenSiteID + '&timewindow=' + timeWindow
-//var buses
-function upDateBuses(buses) {
-  let text = '';
-  buses.forEach(function (bus) {
-    // if (bus.DisplayTime.search(':')) {
-    //   console.log(bus.DisplayTime)
-    // }
-    text += `Buss ${bus.LineNumber} avgår om ${bus.DisplayTime}<br>`;
+const testBuses = [{'DisplayTime':'3 min', 'ExpectedDateTime':"2019-05-12T18:10:25", 'LineNumber':'177'}, {'DisplayTime':'18:17', 'ExpectedDateTime': "2019-05-12T18:17:05", 'LineNumber':'177'}];
+
+var buses
+function upDateBuses() {
+
+  let now = new Date()
+  let nowMin = now.getMinutes()
+  {let busOutput ='' 
+  testBuses.forEach((bus)=>{
+    let timeLeft
+    let departure = new Date(bus.ExpectedDateTime)
+    
+    if(nowMin<departure.getMinutes()){
+      timeLeft = `${departure.getMinutes() - nowMin} min`
+    }
+    else{
+      timeLeft = `${60 - nowMin + departure.getMinutes()} min`
+    }
+    busOutput += `Buss ${bus.LineNumber} avgår om <b>${timeLeft}</b><br>`
   })
-  console.log(text)
-  // Using Date() function 
-  let d = new Date();
-
-  // Converting the number value to string 
-  //a = d.toString()  
-  h = d.getHours();
-  m = d.getMinutes();
-
-  // Printing the current date 
-  //document.write("The current time is: " + h + ":" + m);
-
-  document.getElementById("departures").innerHTML = text
-  //window.buses1 = bus
+  document.getElementById("departures").innerHTML = busOutput
 }
+}
+
+
+
+function getBuses() {
+  fetch(cors_api_url + nextDeparuteURI)
+    .then((res) => res.json())
+    .then((data) => {
+      window.buses = data.ResponseData.Buses
+    })
+    .then(() => console.log(window.buses))
+    .catch((err) => console.log('Fetch Error :-S', err));
+}
+
+function getTime(){
+  fetch('http://worldtimeapi.org/api/timezone/Europe/Stockholm',{mode:"no-cors"})
+    .then((res) => console.log(res))//res.json())
+    .then((data) => console.log(data))
+}
+getTime()
 
 function reqListener() {
   myJson = JSON.parse(this.response)
@@ -60,10 +99,6 @@ function reqListener() {
 
 // function nextDeparture(siteID, timeWindow) {
 
-  fetch(nextDeparuteURI,{method: 'GET',mode: "no-cors"})
-  .then((res)=>res.json())
-  .then((data)=>console.log(data))
-  .catch((err)=>console.log('Fetch Error :-S', err));
 
 // var headers = new Headers();
 
@@ -80,10 +115,6 @@ function reqListener() {
 //   .catch((err)=>console.log('Fetch Error :-S', err))
 // //nextDeparture(sandviksVagenSiteID,timeWindow)
 
-document.getElementById('b2').onclick = displayDate;
-function displayDate() {
-  document.getElementById("buses").innerHTML = Date()
-};
 
 //8a864dd62c4445d98babe9f0a4ea8091
 //
@@ -136,7 +167,5 @@ const getWeather = () => {
 
 
 
-let sec = null;
-    //let tic = new Promise(function(resolve, reject) {});
 
 
