@@ -13,6 +13,62 @@ var smhi = null;
 
 //Firebase
 
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAsoUo8yNDW5XnaKgON-tD00Eenpo6BJMM",
+    authDomain: "clever-abbey-239911.firebaseapp.com",
+    databaseURL: "https://clever-abbey-239911.firebaseio.com",
+    projectId: "clever-abbey-239911",
+    storageBucket: "clever-abbey-239911.appspot.com",
+    messagingSenderId: "433135968722",
+    appId: "1:433135968722:web:1fd66818c1173817"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore()
+
+  //getting from db
+  db.collection("users").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data().name);
+    });
+});
+var dogOutput = ''
+//listening on dogWalks
+db.collection("dogWalks")
+    .onSnapshot(function(qSnapshot) {
+      qSnapshot.forEach(function(doc){
+        dogOutput += `${doc.data().user} gjorde en promenad på ${doc.data().duration} minuter <br>`
+        console.log("Current data: ", doc.data())});
+        document.getElementById("under").innerHTML =dogOutput
+      })
+  //console.log(db.collection("users"))
+  
+  
+  function newDogWalk(s,n,ts){
+    let t = Date.now();
+    //let ts = t.toTimeString()
+    db.collection("dogWalks").doc(2).set({
+      user: s,
+      duration: n,
+      timestamp: firebase.firestore.Timestamp.fromDate(new Date())
+     
+      
+  })
+  .then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+  });
+}
+//newDogWalk('olle', "15")
+  //dogOutput += user + 'gick i' + walkTime +' minuter <br>'
+  //document.getElementById("output").innerHTML = dogOutput
+  //console.log(user + walkTime)
+  //}
+
 
 
 //RAandom
@@ -25,12 +81,6 @@ function myFunction() {
   document.getElementById("output").innerHTML = "You wrote: " + x;
 }
 
-  var dogOutput = ''
-function newDogWalk(user, walkTime){
-  dogOutput += user + 'gick i' + walkTime +' minuter <br>'
-  document.getElementById("output").innerHTML = dogOutput
-  //console.log(user + walkTime)
-}
 
 //SL
 //
@@ -77,19 +127,14 @@ function getBuses() {
     .catch((err) => console.log('Fetch Error :-S', err));
 }
 
-function getTime(){
-  fetch('http://worldtimeapi.org/api/timezone/Europe/Stockholm',{mode:"no-cors"})
-    .then((res) => console.log(res))//res.json())
-    .then((data) => console.log(data))
-}
-getTime()
+// function getTime(){
+//   fetch('http://worldtimeapi.org/api/timezone/Europe/Stockholm',{mode:"no-cors"})
+//     .then((res) => console.log(res))//res.json())
+//     .then((data) => console.log(data))
+// }
+// getTime()
 
-function reqListener() {
-  myJson = JSON.parse(this.response)
-  //console.log(myJson.ResponseData.Buses)
-  //console.log(this.response + 'made it!');
-  upDateBuses(myJson.ResponseData.Buses)
-}
+
 
 // var oReq = new XMLHttpRequest();
 // oReq.addEventListener("load", reqListener);
