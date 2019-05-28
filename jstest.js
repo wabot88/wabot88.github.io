@@ -94,12 +94,15 @@ let nextDeparuteURI = 'https://api.sl.se/api2/realtimedeparturesV4.' + format + 
 const testBuses = [{'DisplayTime':'3 min', 'ExpectedDateTime':"2019-05-12T18:10:25", 'LineNumber':'177'}, {'DisplayTime':'18:17', 'ExpectedDateTime': "2019-05-12T18:17:05", 'LineNumber':'177'}];
 
 var buses
+
+//setInterval(function(){ upDateBuses() }, 10000);
+
 function upDateBuses() {
 
   let now = new Date()
   let nowMin = now.getMinutes()
   {let busOutput ='' 
-  testBuses.forEach((bus)=>{
+  window.buses.forEach((bus)=>{
     let timeLeft
     let departure = new Date(bus.ExpectedDateTime)
     
@@ -171,25 +174,26 @@ function getBuses() {
 //SMHI
 const getWeather = () => {
   fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/16/lat/58/data.json')
-    .then((res) => res.json())
-    .then((data) => {
-      let output = '<h2>Weather</h2>';
-      //console.log(data.timeSeries[1].validTime);
-      for (var i = 0; i < data.timeSeries.length; i++) {
-        //   console.log(data.timeSeries[i].validTime);
-        // }
-        //data.forEach(function(timeSeries){
+  .then((res) => res.json())
+  .then((data) => {
+    let output = '<h2>Weather</h2>';
+    //console.log(data.timeSeries[1].validTime);
+    for (var i = 0; i < data.timeSeries.length; i++) {
+      //   console.log(data.timeSeries[i].validTime);
+      // }
+      //data.forEach(function(timeSeries){
         //Array.prototype.forEach.call(data, function (timeSeries){  
-        //   console.log(validTime);
-        output += `<div>Time: ${data.timeSeries[i].validTime} ${data.timeSeries[i].parameters[1].values[0]}</div>`
-      }
-      document.getElementById("output").innerHTML = output;
-      //document.getElementById("output").innerHTML = data.timeSeries[0].parameters[0].name
-    })
-    .catch(function (err) {
-      console.log('Fetch Error :-S', err)
-    })
-};
+          //   console.log(validTime);
+          output += `<div>Time: ${data.timeSeries[i].validTime.getHour()} ${data.timeSeries[i].parameters[1].values[0]}</div>`
+        }
+        document.getElementById("output").innerHTML = output;
+        //document.getElementById("output").innerHTML = data.timeSeries[0].parameters[0].name
+      })
+      .catch(function (err) {
+        console.log('Fetch Error :-S', err)
+      })
+    };
+    
 //getWeather()
 //   function(response) {
 //     if (response.status !== 200) {
