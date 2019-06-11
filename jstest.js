@@ -39,7 +39,9 @@ var dogOutput = ''
 db.collection("dogWalks")
     .onSnapshot(function(qSnapshot) {
       qSnapshot.forEach(function(doc){
-        dogOutput += `${doc.data().user} gjorde en promenad på ${doc.data().duration} minuter <br>`
+        if(doc.id!="TEST"){
+          dogOutput += `${doc.data().user} gjorde en promenad på ${doc.data().duration} minuter <br>`
+        }
         console.log("Current data: ", doc.data())});
         document.getElementById("under").innerHTML =dogOutput
       })
