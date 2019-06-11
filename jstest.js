@@ -46,13 +46,13 @@ db.collection("dogWalks")
   //console.log(db.collection("users"))
   
   
-  function newDogWalk(s,n,ts){
-    let t = Date.now();
+  function newDogWalk(s,n){
+    //let t = Date.now();
     //let ts = t.toTimeString()
-    db.collection("dogWalks").doc(2).set({
+    db.collection("dogWalks").add({
       user: s,
       duration: n,
-      timestamp: firebase.firestore.Timestamp.fromDate(new Date())
+     // timestamp: firebase.firestore.Timestamp.fromDate(new Date())
      
       
   })
@@ -63,7 +63,7 @@ db.collection("dogWalks")
     console.error("Error adding document: ", error);
   });
 }
-//newDogWalk('olle', "15")
+//newDogWalk('mia', "15")
   //dogOutput += user + 'gick i' + walkTime +' minuter <br>'
   //document.getElementById("output").innerHTML = dogOutput
   //console.log(user + walkTime)
@@ -173,20 +173,28 @@ function getBuses() {
 
 //SMHI
 const getWeather = () => {
-  fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/16/lat/58/data.json')
+  fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.04/lat/59.32/data.json')
   .then((res) => res.json())
   .then((data) => {
-    let output = '<h2>Weather</h2>';
-    //console.log(data.timeSeries[1].validTime);
-    for (var i = 0; i < data.timeSeries.length; i++) {
-      //   console.log(data.timeSeries[i].validTime);
-      // }
-      //data.forEach(function(timeSeries){
-        //Array.prototype.forEach.call(data, function (timeSeries){  
-          //   console.log(validTime);
-          output += `<div>Time: ${data.timeSeries[i].validTime} ${data.timeSeries[i].parameters[1].values[0]}</div>`
+    let output = '';
+    let highTemp = -273, lowTemp = 6000, rainPeak = 0, rainTotal = 0
+    console.log(data);
+    for (var i = 1; i < 9; i++) {
+      if (data.timeSeries[i].parameters[11].values[0]>highTemp){
+        highTemp = data.timeSeries[i].parameters[11].values[0]
+      }
+      if (data.timeSeries[i].parameters[11].values[0]<lowTemp){
+        lowTemp = data.timeSeries[i].parameters[11].values[0]
+      }
+      if (data.timeSeries[i].parameters[16].values[0]>rainPeak){
+        rainPeak = data.timeSeries[i].parameters[16].values[0]
+      }
+      rainTotal += data.timeSeries[i].parameters[16].values[0]
+      console.log(rainTotal)
+        
+        //  output += `<div>Time: ${data.timeSeries[i].validTime} ${data.timeSeries[i].parameters[11].values[0]}</div>`
         }
-        document.getElementById("output").innerHTML = output;
+        document.getElementById("weatherOutput").innerHTML = `Rain total: ${rainTotal} Rain peak: ${rainPeak} <br> Temp High: ${highTemp} Temp low: ${lowTemp}`;
         //document.getElementById("output").innerHTML = data.timeSeries[0].parameters[0].name
       })
       .catch(function (err) {
@@ -194,7 +202,7 @@ const getWeather = () => {
       })
     };
     
-//getWeather()
+getWeather()
 //   function(response) {
 //     if (response.status !== 200) {
 //       console.log('Looks like there was a problem. Status Code: ' +
