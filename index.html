@@ -20,7 +20,7 @@
     </header>
     <hr>
     <h3>Registrera hundpromenad</h3>
-    <form onsubmit="newDogWalk(this.users.value, this.walkTime.value)">
+    <form onsubmit="newDogWalk(this.users.value, this.walkTime.value, this.when.value)">
         <input list="users" name="users">
         <datalist id="users">
             <option value="Tina">
@@ -29,7 +29,14 @@
             <option value="Signe">
             <option value="Rita">
             <option value="Ruth">
-        </datalist>
+            </datalist>
+            <input list="when" name="when">
+                    <datalist id="when">
+                        <option value="morgon">
+                        <option value="lunch">
+                        <option value="eftermiddag">
+                        <option value="kväll">
+                    </datalist>
         <input list="walkTime" name="walkTime">
         <datalist id="walkTime">
             <option value="5">

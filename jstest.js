@@ -40,7 +40,7 @@ db.collection("dogWalks")
     .onSnapshot(function(qSnapshot) {
       qSnapshot.forEach(function(doc){
         if(doc.id!="TEST"){
-          dogOutput += `${doc.data().user} gjorde en promenad på ${doc.data().duration} minuter <br>`
+          dogOutput += `${doc.data().user} gjorde en ${doc.data().when}promenad på ${doc.data().duration} minuter <br>`
         }
         console.log("Current data: ", doc.data())});
         document.getElementById("under").innerHTML =dogOutput
@@ -48,12 +48,13 @@ db.collection("dogWalks")
   //console.log(db.collection("users"))
   
   
-  function newDogWalk(s,n){
+  function newDogWalk(s,n,w){
     //let t = Date.now();
     //let ts = t.toTimeString()
     db.collection("dogWalks").add({
       user: s,
       duration: n,
+      when: w
      // timestamp: firebase.firestore.Timestamp.fromDate(new Date())
      
       
