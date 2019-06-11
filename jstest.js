@@ -54,7 +54,7 @@ db.collection("dogWalks")
     db.collection("dogWalks").add({
       user: s,
       duration: n,
-      when: w
+      when: w,
      // timestamp: firebase.firestore.Timestamp.fromDate(new Date())
      
       
