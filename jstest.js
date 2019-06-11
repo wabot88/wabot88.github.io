@@ -95,7 +95,7 @@ const testBuses = [{'DisplayTime':'3 min', 'ExpectedDateTime':"2019-05-12T18:10:
 
 var buses
 
-//setInterval(function(){ upDateBuses() }, 10000);
+setInterval(function(){ upDateBuses() }, 10000);
 
 function upDateBuses() {
 
@@ -184,7 +184,7 @@ const getWeather = () => {
       //data.forEach(function(timeSeries){
         //Array.prototype.forEach.call(data, function (timeSeries){  
           //   console.log(validTime);
-          output += `<div>Time: ${data.timeSeries[i].validTime.getHour()} ${data.timeSeries[i].parameters[1].values[0]}</div>`
+          output += `<div>Time: ${data.timeSeries[i].validTime} ${data.timeSeries[i].parameters[1].values[0]}</div>`
         }
         document.getElementById("output").innerHTML = output;
         //document.getElementById("output").innerHTML = data.timeSeries[0].parameters[0].name
